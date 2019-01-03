@@ -26,7 +26,8 @@ public class CsvCompareOptions
     
     private String oldFile;
     private String newFile;
-    private char delimiter = DEFAULT_CSV_DELIMITER;
+    private char olddelimiter = DEFAULT_CSV_DELIMITER;
+    private char newdelimiter = DEFAULT_CSV_DELIMITER;
     private boolean exportedBothDifferences;
     
     
@@ -74,9 +75,14 @@ public class CsvCompareOptions
             logger.debug("new file is " + getNewFile());
         }
         
-        if (line.hasOption('d')) {
-            this.setDelimiter(line.getOptionValue('d').charAt(0));
-            logger.debug("CSV delimiter is " + getDelimiter());
+        if (line.hasOption('od')) {
+            this.setOldDelimiter(line.getOptionValue('od').charAt(0));
+            logger.debug("Old CSV delimiter is " + getOldDelimiter());
+        }
+        
+        if (line.hasOption('nd')) {
+            this.setNewDelimiter(line.getOptionValue('nd').charAt(0));
+            logger.debug("New CSV delimiter is " + getNewDelimiter());
         } 
         
         if (line.hasOption('b')) {
@@ -114,14 +120,25 @@ public class CsvCompareOptions
         this.newFile = newFile;
     }
 
-    public char getDelimiter()
+    public char getOldDelimiter()
     {
-        return delimiter;
+        return olddelimiter;
+    }
+    
+    public char getNewDelimiter()
+    {
+        return newdelimiter;
     }
 
-    public void setDelimiter(char delimiter)
+
+    public void setOldDelimiter(char delimiter)
     {
-        this.delimiter = delimiter;
+        olddelimiter = delimiter;
+    }
+    
+    public void setNewDelimiter(char delimiter)
+    {
+        newdelimiter = delimiter;
     }
 
     private static Options getCMdOptions() {
@@ -129,7 +146,8 @@ public class CsvCompareOptions
         Options options = new Options();
         options.addOption( Option.builder("o").required(true).hasArg(true).argName("URL of CSV file").longOpt("old-file").build());
         options.addOption( Option.builder("n").required(true).hasArg(true).argName("URL of CSV file").longOpt("new-file").build());
-        options.addOption( Option.builder("d").hasArg(true).argName("delimiter in CSV file").longOpt("csv-delimiter").build());
+        options.addOption( Option.builder("od").hasArg(true).argName("delimiter in CSV file").longOpt("old-csv-delimiter").build());
+        options.addOption( Option.builder("nd").hasArg(true).argName("delimiter in CSV file").longOpt("new-csv-delimiter").build());
         options.addOption( Option.builder("b").argName("both differences output in CSV file").longOpt("output-both-diff").build());
         
         return options;
