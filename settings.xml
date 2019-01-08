@@ -16,7 +16,7 @@
 
   <!-- Proxy for HTTPS -->
   <proxy>
-   <id>optional</id>
+   <id>optional1</id>
    <active>true</active>
    <protocol>https</protocol>
    <username>CTS\320574</username>

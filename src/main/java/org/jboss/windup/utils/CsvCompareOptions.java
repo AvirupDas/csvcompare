@@ -50,7 +50,7 @@ public class CsvCompareOptions
     public void parse (String[] args) throws Exception {
         CommandLineParser parser = new DefaultParser();
         if (args.length <=1){
-            logger.error("Missing required arguments old-file and new-file");
+            logger.error("Missing required arguments old-file and new-file:"+ args+ " --> "+ args.length);
             printUsage(args);
             throw new IllegalArgumentException("Missing required arguments");
         }
@@ -75,13 +75,13 @@ public class CsvCompareOptions
             logger.debug("new file is " + getNewFile());
         }
         
-        if (line.hasOption('od')) {
-            this.setOldDelimiter(line.getOptionValue('od').charAt(0));
+        if (line.hasOption('d')) {
+            this.setOldDelimiter(line.getOptionValue("d").charAt(0));
             logger.debug("Old CSV delimiter is " + getOldDelimiter());
         }
         
-        if (line.hasOption('nd')) {
-            this.setNewDelimiter(line.getOptionValue('nd').charAt(0));
+        if (line.hasOption('e')) {
+            this.setNewDelimiter(line.getOptionValue("e").charAt(0));
             logger.debug("New CSV delimiter is " + getNewDelimiter());
         } 
         
@@ -146,8 +146,8 @@ public class CsvCompareOptions
         Options options = new Options();
         options.addOption( Option.builder("o").required(true).hasArg(true).argName("URL of CSV file").longOpt("old-file").build());
         options.addOption( Option.builder("n").required(true).hasArg(true).argName("URL of CSV file").longOpt("new-file").build());
-        options.addOption( Option.builder("od").hasArg(true).argName("delimiter in CSV file").longOpt("old-csv-delimiter").build());
-        options.addOption( Option.builder("nd").hasArg(true).argName("delimiter in CSV file").longOpt("new-csv-delimiter").build());
+        options.addOption( Option.builder("d").hasArg(true).argName("delimiter in CSV file").longOpt("old-csv-delimiter").build());
+        options.addOption( Option.builder("e").hasArg(true).argName("delimiter in CSV file").longOpt("new-csv-delimiter").build());
         options.addOption( Option.builder("b").argName("both differences output in CSV file").longOpt("output-both-diff").build());
         
         return options;
